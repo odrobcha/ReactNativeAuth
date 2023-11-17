@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Alert, StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View, ScrollView } from 'react-native';
 
 import FlatButton from '../ui/FlatButton';
 import AuthForm from './AuthForm';
 import { Colors } from '../../constants/styles';
+import {useNavigation} from '@react-navigation/native'
 
 function AuthContent({ isLogin, onAuthenticate }) {
+  const navigation = useNavigation();
 
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
@@ -15,7 +17,13 @@ function AuthContent({ isLogin, onAuthenticate }) {
   });
 
   function switchAuthModeHandler() {
-    // Todo
+    if(isLogin){
+    //  navigation.navigate('Signup')
+      navigation.replace('Signup')
+    } else {
+    //  navigation.navigate('Login')
+      navigation.replace('Login')
+    }
   }
 
   function submitHandler(credentials) {
@@ -47,7 +55,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
   }
 
   return (
-    <View style={styles.authContent}>
+    <ScrollView style={styles.authContent}>
       <AuthForm
         isLogin={isLogin}
         onSubmit={submitHandler}
@@ -58,7 +66,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
           {isLogin ? 'Create a new user' : 'Log in instead'}
         </FlatButton>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

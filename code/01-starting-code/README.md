@@ -121,7 +121,7 @@ import {Ionicons} from '@expo/vector-icons'
 - Use context
   - in component we need context 
     - import { useContext } from 'react';
-    - const ctx = useContext();
+    - const ctx = useContext(ContexYouNeed);
     
 ##Redux Toolkit
 - install `npm install @reduxjs/toolkit`
@@ -152,3 +152,13 @@ import {Ionicons} from '@expo/vector-icons'
 
 ###Axios
 - install Axios `npm i axios`
+- import axios from 'axios'
+
+
+### Screen protection
+- separate screens to different navigationStack
+- display them conditionally
+`<NavigationContainer>
+            {!authCtx.isAuthenticated && <AuthStack />}
+            {authCtx.isAuthenticated && <AuthenticatedStack />}
+ </NavigationContainer>`
