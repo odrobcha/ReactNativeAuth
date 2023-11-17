@@ -162,3 +162,12 @@ import {Ionicons} from '@expo/vector-icons'
             {!authCtx.isAuthenticated && <AuthStack />}
             {authCtx.isAuthenticated && <AuthenticatedStack />}
  </NavigationContainer>`
+
+
+## Storing token on Device and Loging User automatically
+- install AsyncStorage https://react-native-async-storage.github.io/async-storage/docs/install
+- run `npx expo install @react-native-async-storage/async-storage`
+- usage import AsyncStorage from '@react-native-async-storage/async-storage';
+-  AsyncStorage.setItem("token", token) //it has 2 arguments, 1 FieldName, 2 : value(has tobe String)
+- AsyncStorage.getItem("token") // will return a PROMISE
+
