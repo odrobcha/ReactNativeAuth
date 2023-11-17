@@ -19,7 +19,9 @@ function AuthContextProvider ({ children }) { //function responsible for managin
    };
 
    function logout () {
-       setAuthToken(null)
+       setAuthToken(null);
+       AsyncStorage.removeItem('token');
+
    }
 
    const value = {     //th valuewich will be available as AuthContext
