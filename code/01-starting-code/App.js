@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
@@ -10,6 +10,8 @@ import { Colors } from './constants/styles';
 import AuthContextProvider, { AuthContext } from './store/auth-context';
 import IconButton from './components/ui/IconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Text } from 'react-native';
+import LoadingOverlay from './components/ui/LoadingOverlay';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,16 +69,22 @@ function Navigation () {
 }
 function Root(){
     const authCtx = useContext(AuthContext);
+    const [tokenIsFetching, setTokenIsFetching] = useState(true);
     useEffect(()=>{
         const fetchToken = async ()=>{
-            const storedToken = await AsyncStorage.getItem("token") // will return a PROMISE
+            const storedToken = await AsyncStorage.getItem("token");// will return a PROMISE
             if (storedToken){
                 authCtx.authenticate(storedToken)
             }
+            setTokenIsFetching(false)
+
         }
         fetchToken();
 
     }, [])
+    if (tokenIsFetching){
+        return <LoadingOverlay message="Wait..."/>
+    }
     return<Navigation/>
 }
 export default function App () {
